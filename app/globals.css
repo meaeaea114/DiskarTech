@@ -1,0 +1,112 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+/* DiskarTech design tokens — restored from the original DiskarTech mobile theme */
+@theme {
+  --color-brand: #1877d4;       /* --blue */
+  --color-brand-600: #1466b8;
+  --color-brand-50: #eaf3ff;    /* --soft-blue */
+  --color-brand-100: #dcebfb;
+  --color-navy: #123a68;        /* --navy */
+  --color-navy-900: #0f2f55;
+  --color-gold: #c38b29;
+  --color-canvas: #f8f7f3;      /* --cream (app background) */
+  --color-ink: #17263d;         /* --ink */
+  --color-muted: #7d8796;       /* --muted */
+  --color-subtle: #a3aab3;
+  --color-line: #e7e9ed;        /* --line */
+  --color-rose: #8c3941;        /* --rose */
+  --color-success: #33966a;
+  --color-success-50: #e6f5ed;
+  --color-warn: #c38b29;
+  --color-warn-50: #fff1d7;
+  --color-danger: #ac5d60;
+  --color-danger-50: #f8e9e8;
+  --color-violet: #6a5bb5;
+  --color-violet-50: #efecfa;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --shadow-card: 0 4px 13px rgba(36, 56, 78, 0.03), 0 1px 2px rgba(36, 56, 78, 0.03);
+  --shadow-float: 0 -12px 35px rgba(23, 38, 61, 0.15);
+  --shadow-hero: 0 10px 22px rgba(29, 95, 154, 0.17);
+}
+
+html, body { height: 100%; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #dfe7ef; color: var(--color-ink); font-family: var(--font-sans); }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; }
+/* Grid items default to min-width:auto, which lets long truncated text widen the screen. */
+.grid > * { min-width: 0; }
+
+/* Headings use the original serif display style. (Unlayered, so it wins over utility weights.) */
+h1 { font-family: var(--font-serif); font-weight: 500; letter-spacing: -0.5px; }
+
+/* ---- Phone shell: the app always renders as a mobile screen ---- */
+.app-shell { min-height: 100%; display: flex; justify-content: center; align-items: center; padding: 22px; background: radial-gradient(circle at 50% 0%, #f5f9ff 0, #dfe7ef 55%); }
+/* transform makes this the containing block for position:fixed children (tab bar, sheets, toasts). */
+.phone-frame { position: relative; width: 100%; max-width: 430px; height: min(900px, calc(100dvh - 44px)); min-height: 640px; overflow: hidden; display: flex; flex-direction: column; background: var(--color-canvas); border: 1px solid #c7d0da; border-radius: 28px; box-shadow: 0 22px 60px rgba(101, 117, 137, 0.22); transform: translateZ(0); }
+.app-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-width: none; }
+.app-scroll::-webkit-scrollbar { display: none; }
+@media (max-width: 600px) {
+  .app-shell { padding: 0; background: var(--color-canvas); }
+  .phone-frame { height: 100dvh; min-height: 0; max-width: none; border: 0; border-radius: 0; box-shadow: none; }
+}
+
+@layer components {
+  .card { @apply rounded-[17px] border border-[#e9ecee] bg-white shadow-[var(--shadow-card)]; }
+  .card-pad { @apply p-4; }
+  .tap { @apply transition active:scale-[0.98]; }
+  .bg-hero { background: linear-gradient(120deg, #0f477d, #247eca); }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-[25px] px-5 font-bold transition select-none disabled:opacity-50 active:scale-[0.98] h-12 text-[14px]; }
+  .btn-sm { @apply h-9 rounded-[20px] px-3.5 text-[12px]; }
+  .btn-primary { @apply bg-brand text-white shadow-[0_6px_15px_rgba(24,119,212,0.24)] hover:bg-brand-600; }
+  .btn-secondary { @apply border border-[#d9e0e6] bg-white text-[#315b7d] hover:bg-[#f3f5f8]; }
+  .btn-tinted { @apply bg-brand-50 text-brand hover:bg-brand-100; }
+  .btn-danger { @apply bg-danger-50 text-danger hover:bg-[#f2dcdc]; }
+  .btn-ghost { @apply text-brand hover:bg-brand-50; }
+  .btn-success { @apply bg-success text-white; }
+
+  .input { @apply w-full rounded-[11px] border border-line bg-white px-3 py-3 text-[14px] outline-none transition placeholder:text-subtle focus:border-brand focus:ring-4 focus:ring-brand/10; }
+  .input-error { @apply border-danger focus:border-danger focus:ring-danger/10; }
+  .label { @apply mb-1.5 block text-[12px] font-bold text-ink; }
+
+  .chip { @apply inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-[20px] border border-[#e3e7eb] bg-white px-3 py-2 text-[12px] text-[#6d7884] transition; }
+  .chip-active { @apply border-[#173d67] bg-[#173d67] text-white; }
+
+  .eyebrow { @apply text-[10px] font-bold uppercase tracking-[1.35px] text-[#8c95a1]; }
+  .section-title { @apply font-serif text-[18px] font-medium tracking-tight text-ink; }
+  .page-title { @apply font-serif text-[27px] font-medium leading-[1.08] tracking-tight text-ink; }
+  .link { @apply text-[12px] font-semibold text-brand hover:underline; }
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}
+
+.skeleton { background: linear-gradient(90deg, #ecebe6 25%, #f4f3ef 50%, #ecebe6 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; border-radius: 10px; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes sheet-up { from { transform: translateY(20px); opacity: 0.6; } to { transform: none; opacity: 1; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes toast-in { from { transform: translateY(-12px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes page-in { from { transform: translateX(10px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+.animate-sheet { animation: sheet-up 0.25s ease-out; }
+.animate-fade { animation: fade-in 0.2s ease-out; }
+.animate-toast { animation: toast-in 0.22s ease-out; }
+.page-enter { animation: page-in 0.22s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Print only the résumé/certificate when exporting to PDF */
+@media print {
+  html, body { height: auto; background: #fff; }
+  .app-shell { padding: 0; background: none; display: block; }
+  .phone-frame, .app-scroll { height: auto; max-width: none; overflow: visible; border: 0; box-shadow: none; transform: none; border-radius: 0; }
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  .print-area { position: absolute; inset: 0; box-shadow: none !important; border: 0 !important; margin: 0 !important; max-width: none !important; }
+  @page { margin: 14mm; }
+}
